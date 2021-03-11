@@ -39,7 +39,7 @@ object GlueApp{
         val resultDataFrame = successMetricsAsDataFrame(sparkSession, analysisResult)
         // convert check results to a Dynamic Frame
         val resultDynamicDataFrame = DynamicFrame(resultDataFrame, glueContext)
-        // Enviar resultados a S3
+        // Write results to s3
         glueContext.getSinkWithFormat(connectionType = "s3", options = JsonOptions(Map("path" -> ouputDeequDir)),
             format = "parquet", transformationContext = "").writeDynamicFrame(resultDynamicDataFrame)
    }
